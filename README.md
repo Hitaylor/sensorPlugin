@@ -1,2 +1,11 @@
 # sensorPlugin
-sensorPlugin
+此程序基于class_loader框架开发，依赖于基于class_loader生成的动态库libclass_loader.so。后续使用过程中如果因为class_loader出现问题，请及时下载更新的class_loader源代码，并编译成动态库。这里我采用的是无ros环境下的编译。生车的动态库放到了./lib目录下。
+
+本程序主要包括一个基类SensorPluginBase和两个子类BSensorPlugin和CSensorPlugin。
+
+基类定义了接口函数，最主要的是init函数和getData和dataProcess函数。
+init是实现各传感器的初始化和打开操作（我们后续根据需要可以增加open函数，对于所有的传感器来说，可能都需要打开）。
+dataProcess是一个线程函数，在该函数里面调用getData这个阻塞式函数。
+
+#v0.1
+目前实现的子类的设计是dataProcess里面调用getData()拿不到数据就一直等着，一旦拿到数据，就将数据写盘，然后读取参数传进来的标签类的指针，获取对应的标签内容，然后将标签内容写入磁盘。标签相关的内容，请参考https://github.com/Hitaylor/labelGeneratorPlugin 。这一部分目前是实现一个可用的版本，后续要对这部分内容进行优化。
