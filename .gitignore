@@ -1,6 +1,11 @@
 # Prerequisites
 *.d
 
+# Build folder
+build/*
+#Vs code project folder
+.vscode/*
+
 # Compiled Object files
 *.slo
 *.lo
@@ -15,6 +20,7 @@
 *.so
 *.dylib
 *.dll
+!libclass_loader.so
 
 # Fortran module files
 *.mod
